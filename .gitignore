@@ -50,3 +50,8 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Course Content
+*.pdf
+*.mp4
+transcript.txt
