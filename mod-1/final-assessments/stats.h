@@ -9,32 +9,105 @@
  *
  *****************************************************************************/
 /**
- * @file <Add File Name> 
- * @brief <Add Brief Description Here >
+ * @file stats.h
+ * @brief The header file for the statistics functions.
  *
- * <Add Extended Description Here>
+ * All of the functions for this assignment will live here. The functions are,
+ * in general, for calculating data and for printing data.
  *
- * @author <Add FirsName LastName>
- * @date <Add date >
+ * @author Michael Torres
+ * @date 5/14/25
  *
  */
 #ifndef __STATS_H__
 #define __STATS_H__
 
-/* Add Your Declarations and Function Comments here */ 
+/**
+ * @brief Find array's median.
+ *
+ * This function, with read-only access, gets the median value stored in a
+ * sorted array. This pre-requisite is important.
+ *
+ * @param arr A read-only pointer to a sorted array.
+ * @param len A read-only length of the pointed to array.
+ *
+ * @return The median value.
+ */
+unsigned char find_median(const unsigned char *const arr,
+        const unsigned int len);
 
 /**
- * @brief <Add Brief Description of Function Here>
+ * @brief Find array's mean.
  *
- * <Add Extended Description Here>
+ * This function, with read-only access, gets the mean value stored in an array.
  *
- * @param <Add InputName> <add description here>
- * @param <Add InputName> <add description here>
- * @param <Add InputName> <add description here>
- * @param <Add InputName> <add description here>
+ * @param arr A read-only pointer to an array.
+ * @param len A read-only length of the pointed to array.
  *
- * @return <Add Return Informaiton here>
+ * @return The mean value.
  */
+unsigned char find_mean(const unsigned char *const arr, const unsigned int len);
 
+/**
+ * @brief Find array's maximum.
+ *
+ * This function, with read-only access, gets the maximum value stored in a
+ * sorted array. This pre-requisite is important.
+ *
+ * @param arr A read-only pointer to a sorted array.
+ * @param len A read-only length of the pointed to array.
+ *
+ * @return The maximum value.
+ */
+unsigned char find_maximum(const unsigned char *const arr,
+        const unsigned int len);
+
+/**
+ * @brief Find array's minimum.
+ *
+ * This function, with read-only access, gets the minimum value stored in a
+ * sorted array. This pre-requisite is important.
+ *
+ * @param arr A read-only pointer to a sorted array.
+ * @param len A read-only length of the pointed to array.
+ *
+ * @return The maximum value.
+ */
+unsigned char find_minimum(const unsigned char *const arr,
+        const unsigned int len);
+
+/**
+ * @brief Sort a given array from largest to smallest.
+ *
+ * This function sorts a given array in-place from largest to smallest using
+ * bubble sort.
+ *
+ * @param arr A pointer to an array.
+ * @param len A read-only length of the pointed to array.
+ */
+void sort_array(unsigned char *const arr, const unsigned int len);
+
+/**
+ * @brief Print the statistics values to stdout.
+ *
+ * This function prints all of the collected statistics from the input data.
+ *
+ * @param median The median of the data-set.
+ * @param mean The mean of the data-set.
+ * @param max The max of the data-set.
+ * @param min The min of the data-set.
+ */
+void print_statistics(const unsigned char median, const unsigned char mean,
+        const unsigned char max, const unsigned char min);
+
+/**
+ * @brief Print the array values to stdout.
+ *
+ * This function prints all of the values in the given array.
+ *
+ * @param arr A read-only pointer to an array.
+ * @param len A read-only length of the pointed to array.
+ */
+void print_array(const unsigned char *const arr, const unsigned int len);
 
 #endif /* __STATS_H__ */
