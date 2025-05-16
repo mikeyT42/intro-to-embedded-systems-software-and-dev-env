@@ -34,7 +34,8 @@ void main() {
   sort_array(test, SIZE);
   print_array(test, SIZE);
   const unsigned char median = find_median(test, SIZE);
-  printf("median = %i\n", median);
+  const unsigned char mean = 0, max = 0, min = 0;
+  print_statistics(median, mean, max, min);
 }
 
 // -----------------------------------------------------------------------------
@@ -54,6 +55,12 @@ unsigned char find_median(const unsigned char *const arr,
   }
 
   return median;
+}
+
+// -----------------------------------------------------------------------------
+void print_statistics(const unsigned char median, const unsigned char mean,
+                      const unsigned char max, const unsigned char min) {
+  printf("median = %i\n", median);
 }
 
 // -----------------------------------------------------------------------------
