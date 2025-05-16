@@ -98,8 +98,7 @@ void sort_array(unsigned char *const arr, const unsigned int len);
  * @param low The current lowest index.
  * @param high The current highest index.
  */
-void quicksort(unsigned char *const arr, const unsigned int low,
-               const unsigned int high);
+void quicksort(unsigned char *const arr, const int low, const int high);
 
 /**
  * @brief The partitioning function that splits down the array.
@@ -114,8 +113,7 @@ void quicksort(unsigned char *const arr, const unsigned int low,
  *
  * @return The index of the new pivoting index.
  */
-unsigned int partition(unsigned char *const arr, const unsigned int low,
-                       const unsigned int high);
+int partition(unsigned char *const arr, const int low, const int high);
 
 /**
  * @brief Print the statistics values to stdout.

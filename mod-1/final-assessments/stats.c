@@ -31,10 +31,10 @@ void main() {
                               45, 76,  123, 87,  25,  23,  200, 122, 150, 90,
                               92, 87,  177, 244, 201, 6,   12,  60,  8,   2,
                               5,  67,  7,   87,  250, 230, 99,  3,   100, 90};
-
   sort_array(test, SIZE);
-  puts("Done");
   print_array(test, SIZE);
+  const unsigned char median = find_median(test, SIZE);
+  printf("median = %i\n", median);
 }
 
 // -----------------------------------------------------------------------------
@@ -47,6 +47,7 @@ unsigned char find_median(const unsigned char *const arr,
     median = arr[middle];
   } else {
     // Is even.
+    // 1 2 3 4 5 6 7 8 9 10
     const unsigned int top_half_low = len / 2;
     const unsigned int bottom_half_high = top_half_low - 1;
     // No rounding needed because of floating point truncation.
@@ -59,7 +60,7 @@ unsigned char find_median(const unsigned char *const arr,
 // -----------------------------------------------------------------------------
 void print_array(const unsigned char *const arr, const unsigned int len) {
   for (unsigned int i = 0; i < len; i++)
-      printf("array[%i] = %c\n", i, arr[i]);
+    printf("array[%i] = %i\n", i, arr[i]);
 }
 
 // -----------------------------------------------------------------------------
@@ -69,25 +70,20 @@ void sort_array(unsigned char *const arr, const unsigned int len) {
 }
 
 // -----------------------------------------------------------------------------
-void quicksort(unsigned char *const arr, const unsigned int low,
-               const unsigned int high) {
+void quicksort(unsigned char *const arr, const int low, const int high) {
   if (low < high) {
-    puts("partitioning");
-    const unsigned int pivot_index = partition(arr, low, high);
-    puts("quicksort high");
+    const int pivot_index = partition(arr, low, high);
     quicksort(arr, low, pivot_index - 1);
-    puts("quicksort low");
     quicksort(arr, pivot_index + 1, high);
   }
 }
 
 // -----------------------------------------------------------------------------
-unsigned int partition(unsigned char *const arr, const unsigned int low,
-                       const unsigned int high) {
+int partition(unsigned char *const arr, const int low, const int high) {
   const unsigned char pivot = arr[high];
-  unsigned int i = low - 1;
+  int i = low - 1;
 
-  for (unsigned int j = low; j < high; j++) {
+  for (int j = low; j < high; j++) {
     if (arr[j] >= pivot) {
       i++;
       const unsigned char tmp = arr[i];
