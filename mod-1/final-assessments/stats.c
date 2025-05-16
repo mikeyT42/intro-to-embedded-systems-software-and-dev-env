@@ -47,7 +47,6 @@ unsigned char find_median(const unsigned char *const arr,
     median = arr[middle];
   } else {
     // Is even.
-    // 1 2 3 4 5 6 7 8 9 10
     const unsigned int top_half_low = len / 2;
     const unsigned int bottom_half_high = top_half_low - 1;
     // No rounding needed because of floating point truncation.
@@ -60,7 +59,7 @@ unsigned char find_median(const unsigned char *const arr,
 // -----------------------------------------------------------------------------
 void print_array(const unsigned char *const arr, const unsigned int len) {
   for (unsigned int i = 0; i < len; i++)
-    printf("array[%i] = %i\n", i, arr[i]);
+    printf("array[%i] = %i\n", i + 1, arr[i]);
 }
 
 // -----------------------------------------------------------------------------
