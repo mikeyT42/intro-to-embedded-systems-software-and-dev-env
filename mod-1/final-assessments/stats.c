@@ -32,9 +32,12 @@ void main() {
                               92, 87,  177, 244, 201, 6,   12,  60,  8,   2,
                               5,  67,  7,   87,  250, 230, 99,  3,   100, 90};
   sort_array(test, SIZE);
+  printf("test: ");
   print_array(test, SIZE);
   const unsigned char median = find_median(test, SIZE);
-  const unsigned char mean = 0, max = 0, min = 0;
+  const unsigned char mean = find_mean(test, SIZE);
+  const unsigned char max = find_maximum(test, SIZE);
+  const unsigned char min = find_minimum(test, SIZE);
   print_statistics(median, mean, max, min);
 }
 
@@ -58,15 +61,48 @@ unsigned char find_median(const unsigned char *const arr,
 }
 
 // -----------------------------------------------------------------------------
+unsigned char find_mean(const unsigned char *const arr,
+                        const unsigned int len) {
+  int sum = 0;
+  for (int i = 0; i < len; i++)
+    sum += arr[i];
+  int mean = sum / len;
+  return (unsigned char)mean;
+}
+
+// -----------------------------------------------------------------------------
+unsigned char find_maximum(const unsigned char *const arr,
+                           const unsigned int len) {
+  return arr[0];
+}
+
+// -----------------------------------------------------------------------------
+unsigned char find_minimum(const unsigned char *const arr,
+                           const unsigned int len) {
+  return arr[len - 1];
+}
+
+// -----------------------------------------------------------------------------
 void print_statistics(const unsigned char median, const unsigned char mean,
                       const unsigned char max, const unsigned char min) {
-  printf("median = %i\n", median);
+  printf("\nStatistics\n");
+  printf("%s%10s\n", "What", "Value");
+  printf("%-8s = %i\n", "Median", median);
+  printf("%-8s = %i\n", "Mean", mean);
+  printf("%-8s = %i\n", "Max", max);
+  printf("%-8s = %i\n", "Min", min);
 }
 
 // -----------------------------------------------------------------------------
 void print_array(const unsigned char *const arr, const unsigned int len) {
-  for (unsigned int i = 0; i < len; i++)
-    printf("array[%i] = %i\n", i + 1, arr[i]);
+  printf("[ ");
+  for (int i = 0; i < len; i++) {
+    printf("%d", arr[i]);
+    if (i < len - 1) {
+      printf(", ");
+    }
+  }
+  printf(" ]\n");
 }
 
 // -----------------------------------------------------------------------------
