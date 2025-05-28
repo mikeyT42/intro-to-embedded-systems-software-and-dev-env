@@ -24,7 +24,7 @@
 include sources.mk
 
 # Platform Overrides
-PLATFORM = HOST
+PLATFORM = P
 
 # Architectures Specific Flags
 LINKER_FILE = ../msp432p401r.lds
