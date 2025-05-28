@@ -24,18 +24,31 @@
 include sources.mk
 
 # Platform Overrides
-PLATFORM = 
+PLATFORM = HOST
 
 # Architectures Specific Flags
-LINKER_FILE = 
-CPU = 
-ARCH = 
-SPECS = 
+LINKER_FILE = ../msp432p401r.lds
+CPU = armv7e-m
+ARCH = cortex-m4
+SPECS = nosys.specs
 
 # Compiler Flags and Defines
-CC = 
-LD = 
-LDFLAGS = 
-CFLAGS = 
-CPPFLAGs = 
+CC = gcc
+#LD = 
+LDFLAGS = $(INCLUDES)
+#CFLAGS = -c
+#CPPFLAGS = 
+TARGET = c1m2
+
+OBJS := $(SOURCES)
+
+.PHONY: build
+build: $(TARGET).out
+
+$(TARGET).out: $(OBJS)
+	$(CC) -D$(PLATFORM) $(LDFLAGS) -o $@ $^
+
+.PHONY: clean
+clean:
+	rm -f $(OBJS) $(TARGET).out $(TARGET).map
 
