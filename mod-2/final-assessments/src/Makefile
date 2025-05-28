@@ -40,12 +40,12 @@ LDFLAGS = $(INCLUDES)
 #CPPFLAGS = 
 TARGET = c1m2
 
-OBJS := $(SOURCES)
+OBJS := $(SOURCES:.c=.o)
 
 .PHONY: build
 build: $(TARGET).out
 
-$(TARGET).out: $(OBJS)
+$(TARGET).out: $(SOURCES)
 	$(CC) -D$(PLATFORM) $(LDFLAGS) -o $@ $^
 
 .PHONY: clean
