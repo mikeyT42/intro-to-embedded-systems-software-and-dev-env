@@ -15,7 +15,21 @@
 # Use: make [TARGET] [PLATFORM-OVERRIDES]
 #
 # Build Targets:
-#      <Put a description of the supported targets here>
+#      %.i - This is to generate an implementation file from a .c file; and
+#            it generates the respective dependency (.d) file from the .c file.
+#      %.asm - This is to generate an assembly file from a given .c file. The
+#              executable file for the platform is also generated, disassembled
+#              using objdump, and then deleted.
+#      %.o - This is to generate an object file from a .c file. As a side effect
+#            the respective dependency file is generated as well. This same
+#            target is used for the compile-all target.
+#      compile-all - This generates all .o files and their respective dependency
+#                    files.
+#      build - This generates all .o files, .d files, a .map, and finally runs
+#              size on the output executable and prints that report to the
+#              screen.
+#      clean - This cleans up all generated files. Please pass in the platform
+#              when wanting to clean the MSP432 generated files.
 #
 # Platform Overrides:
 #      PLATFORM - Supports HOST or MSP432
