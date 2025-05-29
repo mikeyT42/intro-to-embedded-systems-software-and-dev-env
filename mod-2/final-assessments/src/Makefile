@@ -51,6 +51,7 @@ ifeq ($(PLATFORM), HOST)
 CC = gcc
 LD = ld
 SZ = size
+ODBJDUMP = objdump
 LDFLAGS = -Wl,-Map=$(TARGET).map
 CFLAGS = -Wall -Werror -g -O0 -std=c99
 CPPFLAGS = $(INCLUDES)
@@ -58,6 +59,7 @@ else
 CC = arm-none-eabi-gcc
 LD = arm-none-eabi-ld
 SZ = arm-none-eabi-size
+ODBJDUMP = arm-none-eabi-objdump
 LDFLAGS = -T ../msp432p401r.lds -Wl,-Map=$(TARGET).map
 CFLAGS = -Wall -g -O0 -std=c99 -mthumb \
 		 -mcpu=$(CPU) -march=$(ARCH) -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
@@ -80,10 +82,11 @@ DEPS = $(SOURCES:.c=.d)
 	# Get the .asm file for the given file.
 	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -S -o $@ $^
 	# Compile and disassemble for executable asm.
-	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -o $(TARGET).out $(SOURCES)
-	objdump -d $(TARGET).out > $(TARGET).asm
-	# Cleanup the exe.
-	rm -f $(TARGET).out
+	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $(TARGET).out \
+		$(SOURCES)
+	$(ODBJDUMP) -d $(TARGET).out > $(TARGET).asm
+	# Cleanup.
+	rm -f $(TARGET).out $(TARGET).map
 
 #-------------------------------------------------------------------------------
 %.o: %.c
