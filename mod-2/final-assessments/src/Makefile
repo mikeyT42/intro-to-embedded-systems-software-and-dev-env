@@ -44,8 +44,8 @@ else
 CC = arm-none-eabi-gcc
 LD = arm-none-eabi-ld
 SZ = arm-none-eabi-size
-LDFLAGS = -T ../msp432p401r.lds
-CFLAGS = -Wall -Werror -g -O0 -std=c99 -mthumb \
+LDFLAGS = -T ../msp432p401r.lds -Wl,-Map=$(TARGET).map
+CFLAGS = -Wall -g -O0 -std=c99 -mthumb \
 		 -mcpu=$(CPU) -march=$(ARCH) -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
 		 --specs=$(SPECS)
 CPPFLAGS = $(INCLUDES)
@@ -66,7 +66,7 @@ DEPS = $(SOURCES:.c=.d)
 	# Get the .asm file for the given file.
 	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -S -o $@ $^
 	# Compile and disassemble for executable asm.
-	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -o $@ $^
+	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -o $(TARGET).out $(SOURCES)
 	objdump -d $(TARGET).out > $(TARGET).asm
 	# Cleanup the exe.
 	rm -f $(TARGET).out
