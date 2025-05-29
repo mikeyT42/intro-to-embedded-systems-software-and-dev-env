@@ -20,7 +20,6 @@ SOURCES = main.c \
 		  memory.c
 endif
 
-# Add your include paths to this variable
 ifeq ($(PLATFORM),MSP432)
 INCLUDES = -I../include/common \
 		   -I../include/CMSIS \
