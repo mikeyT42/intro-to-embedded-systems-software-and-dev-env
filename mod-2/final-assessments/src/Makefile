@@ -73,7 +73,7 @@ DEPS = $(SOURCES:.c=.d)
 
 #-------------------------------------------------------------------------------
 %.o: %.c
-	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -MMD -MP -c $< -o $@
 
 #-------------------------------------------------------------------------------
 .PHONY: compile-all
@@ -84,7 +84,7 @@ compile-all: $(OBJS)
 build: $(TARGET).out
 
 $(TARGET).out: $(OBJS)
-	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJS)
+	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $^
 	$(SZ) -Atd $@
 
 #-------------------------------------------------------------------------------
