@@ -36,12 +36,14 @@ SPECS = nosys.specs
 ifeq ($(PLATFORM), HOST)
 CC = gcc
 LD = ld
+SZ = size
 LDFLAGS = -Wl,-Map=$(TARGET).map
 CFLAGS = -Wall -Werror -g -O0 -std=c99
 CPPFLAGS = $(INCLUDES)
 else
 CC = arm-none-eabi-gcc
 LD = arm-none-eabi-ld
+SZ = arm-none-eabi-size
 LDFLAGS = -T ../msp432p401r.lds
 CFLAGS = -Wall -Werror -g -O0 -std=c99 -mthumb \
 		 -mcpu=$(CPU) -march=$(ARCH) -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
@@ -60,24 +62,30 @@ DEPS = $(SOURCES:.c=.d)
 	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -MD -E -o $@ $^
 
 #-------------------------------------------------------------------------------
-%.asm: %.c build
-	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -S -o $@ $<
+%.asm: %.c
+	# Get the .asm file for the given file.
+	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -S -o $@ $^
+	# Compile and disassemble for executable asm.
+	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -o $@ $^
 	objdump -d $(TARGET).out > $(TARGET).asm
+	# Cleanup the exe.
 	rm -f $(TARGET).out
 
 #-------------------------------------------------------------------------------
-.PHONY: build
-build: $(TARGET).out
-
-$(TARGET).out: $(OBJS) compile-all
-	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJS)
+%.o: %.c
+	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 #-------------------------------------------------------------------------------
 .PHONY: compile-all
 compile-all: $(OBJS)
 
-$(OBJS): $(SOURCES)
-	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -c $^
+#-------------------------------------------------------------------------------
+.PHONY: build
+build: $(TARGET).out
+
+$(TARGET).out: $(OBJS)
+	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJS)
+	$(SZ) -Atd $@
 
 #-------------------------------------------------------------------------------
 .PHONY: clean
