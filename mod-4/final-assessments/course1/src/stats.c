@@ -21,25 +21,9 @@
  */
 
 #include "stats.h"
-#include <stdio.h>
 
 /* Size of the Data Set */
 #define SIZE (40)
-
-void main() {
-  unsigned char test[SIZE] = {34, 201, 190, 154, 8,   194, 2,   6,   114, 88,
-                              45, 76,  123, 87,  25,  23,  200, 122, 150, 90,
-                              92, 87,  177, 244, 201, 6,   12,  60,  8,   2,
-                              5,  67,  7,   87,  250, 230, 99,  3,   100, 90};
-  sort_array(test, SIZE);
-  printf("test: ");
-  print_array(test, SIZE);
-  const unsigned char median = find_median(test, SIZE);
-  const unsigned char mean = find_mean(test, SIZE);
-  const unsigned char max = find_maximum(test, SIZE);
-  const unsigned char min = find_minimum(test, SIZE);
-  print_statistics(median, mean, max, min);
-}
 
 // -----------------------------------------------------------------------------
 unsigned char find_median(const unsigned char *const arr,
@@ -85,24 +69,26 @@ unsigned char find_minimum(const unsigned char *const arr,
 // -----------------------------------------------------------------------------
 void print_statistics(const unsigned char median, const unsigned char mean,
                       const unsigned char max, const unsigned char min) {
-  printf("\nStatistics\n");
-  printf("%s%10s\n", "What", "Value");
-  printf("%-8s = %i\n", "Median", median);
-  printf("%-8s = %i\n", "Mean", mean);
-  printf("%-8s = %i\n", "Max", max);
-  printf("%-8s = %i\n", "Min", min);
+  PRINTF("\nStatistics\n");
+  PRINTF("%s%10s\n", "What", "Value");
+  PRINTF("%-8s = %i\n", "Median", median);
+  PRINTF("%-8s = %i\n", "Mean", mean);
+  PRINTF("%-8s = %i\n", "Max", max);
+  PRINTF("%-8s = %i\n", "Min", min);
 }
 
 // -----------------------------------------------------------------------------
 void print_array(const unsigned char *const arr, const unsigned int len) {
-  printf("[ ");
+#if defined(VERBOSE)
+  PRINTF("[ ");
   for (int i = 0; i < len; i++) {
-    printf("%d", arr[i]);
+    PRINTF("%d", arr[i]);
     if (i < len - 1) {
-      printf(", ");
+      PRINTF(", ");
     }
   }
-  printf(" ]\n");
+  PRINTF(" ]\n");
+#endif
 }
 
 // -----------------------------------------------------------------------------
