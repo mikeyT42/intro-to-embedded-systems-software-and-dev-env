@@ -34,6 +34,8 @@
  *
  * @return void.
  */
+#include <cstddef>
+#include <cstdint>
 void set_value(char * ptr, unsigned int index, char value);
 
 /**
@@ -89,5 +91,14 @@ void set_all(char * ptr, char value, unsigned int size);
  * @return void.
  */
 void clear_all(char * ptr, unsigned int size);
+
+/**
+ * @brief Move from the source location to the destination.
+ *
+ * Takes two byte pointers (one source and one destination) and a length of
+ * bytes to move from the source location to the destination. If there is an
+ * overlap of sourc and destination, copy will occur with no data corruption.
+ */
+uint8_t *my_memmove(uint8_t *src, uint8_t *dst, size_t length);
 
 #endif /* __MEMORY_H__ */
