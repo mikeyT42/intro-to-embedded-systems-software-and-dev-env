@@ -41,7 +41,7 @@ include sources.mk
 PLATFORM = PLACEHOLDER
 
 # Architectures Specific Flags
-LINKER_FILE = ../msp432p401r.lds
+LINKER_FILE = msp432p401r.lds
 CPU = cortex-m4
 ARCH = armv7e-m
 SPECS = nosys.specs
@@ -60,8 +60,8 @@ CC = arm-none-eabi-gcc
 LD = arm-none-eabi-ld
 SZ = arm-none-eabi-size
 ODBJDUMP = arm-none-eabi-objdump
-LDFLAGS = -T ../msp432p401r.lds -Wl,-Map=$(TARGET).map
-CFLAGS = -Wall -g -O0 -std=c99 -mthumb \
+LDFLAGS = -T msp432p401r.lds -Wl,-Map=$(TARGET).map
+CFLAGS = -Wall -Werror -g -O0 -std=c99 -mthumb \
 		 -mcpu=$(CPU) -march=$(ARCH) -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
 		 --specs=$(SPECS)
 CPPFLAGS = $(INCLUDES)
@@ -91,6 +91,12 @@ DEPS = $(SOURCES:.c=.d)
 #-------------------------------------------------------------------------------
 %.o: %.c
 	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -MMD -MP -c $< -o $@
+
+# Compile interrupt handler without using FPU registers int order to avoid FPU
+# context save/restore.
+src/interrupts_msp432p401r_gcc.o: src/interrupts_msp432p401r_gcc.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -mgeneral-regs-only -MMD -MP -c $< -o $@
+
 
 #-------------------------------------------------------------------------------
 .PHONY: compile-all

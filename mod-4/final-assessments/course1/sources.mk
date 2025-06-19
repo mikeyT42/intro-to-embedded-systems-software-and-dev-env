@@ -10,20 +10,17 @@
 #*****************************************************************************
 
 ifeq ($(PLATFORM),MSP432)
-SOURCES = interrupts_msp432p401r_gcc.c \
-		  startup_msp432p401r_gcc.c \
-		  system_msp432p401r.c \
-		  main.c \
-		  memory.c
+SOURCES = src/interrupts_msp432p401r_gcc.c \
+		  src/startup_msp432p401r_gcc.c \
+		  src/system_msp432p401r.c \
+		  src/main.c \
+		  src/memory.c
+INCLUDES = -Iinclude/common \
+		   -Iinclude/CMSIS \
+		   -Iinclude/msp432
 else
-SOURCES = main.c \
-		  memory.c
+SOURCES = src/main.c \
+		  src/memory.c
+INCLUDES = -Iinclude/common
 endif
 
-ifeq ($(PLATFORM),MSP432)
-INCLUDES = -I../include/common \
-		   -I../include/CMSIS \
-		   -I../include/msp432
-else
-INCLUDES = -I../include/common
-endif
