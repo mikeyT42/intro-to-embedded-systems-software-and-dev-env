@@ -22,6 +22,9 @@
 #ifndef __MEMORY_H__
 #define __MEMORY_H__
 
+#include <cstddef>
+#include <cstdint>
+
 /**
  * @brief Sets a value of a data array
  *
@@ -34,8 +37,6 @@
  *
  * @return void.
  */
-#include <cstddef>
-#include <cstdint>
 void set_value(char *ptr, unsigned int index, char value);
 
 /**
