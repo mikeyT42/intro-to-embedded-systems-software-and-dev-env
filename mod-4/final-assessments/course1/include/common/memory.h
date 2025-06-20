@@ -22,8 +22,8 @@
 #ifndef __MEMORY_H__
 #define __MEMORY_H__
 
-#include <cstddef>
-#include <cstdint>
+#include <stddef.h>
+#include <stdint.h>
 
 /**
  * @brief Sets a value of a data array
