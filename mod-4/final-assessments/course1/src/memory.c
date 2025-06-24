@@ -2,10 +2,10 @@
  * Copyright (C) 2017 by Alex Fosdick - University of Colorado
  *
  * Redistribution, modification or use of this software in source or binary
- * forms is permitted as long as the files maintain this copyright. Users are 
+ * forms is permitted as long as the files maintain this copyright. Users are
  * permitted to modify this and use it to learn about the field of embedded
  * software. Alex Fosdick and the University of Colorado are not liable for any
- * misuse of this material. 
+ * misuse of this material.
  *
  *****************************************************************************/
 /**
@@ -22,29 +22,38 @@
  */
 #include "memory.h"
 
-/***********************************************************
+/*******************************************************************************
  Function Definitions
-***********************************************************/
-void set_value(char * ptr, unsigned int index, char value){
+*******************************************************************************/
+void set_value(char *ptr, unsigned int index, char value) {
   ptr[index] = value;
 }
 
-void clear_value(char * ptr, unsigned int index){
-  set_value(ptr, index, 0);
-}
+// -----------------------------------------------------------------------------
+void clear_value(char *ptr, unsigned int index) { set_value(ptr, index, 0); }
 
-char get_value(char * ptr, unsigned int index){
-  return ptr[index];
-}
+// -----------------------------------------------------------------------------
+char get_value(char *ptr, unsigned int index) { return ptr[index]; }
 
-void set_all(char * ptr, char value, unsigned int size){
+// -----------------------------------------------------------------------------
+void set_all(char *ptr, char value, unsigned int size) {
   unsigned int i;
-  for(i = 0; i < size; i++) {
+  for (i = 0; i < size; i++) {
     set_value(ptr, i, value);
   }
 }
 
-void clear_all(char * ptr, unsigned int size){
-  set_all(ptr, 0, size);
-}
+// -----------------------------------------------------------------------------
+void clear_all(char *ptr, unsigned int size) { set_all(ptr, 0, size); }
 
+// -----------------------------------------------------------------------------
+uint8_t *my_memcopy(const uint8_t *const src, uint8_t *const dst,
+                    const size_t length) {
+  for (size_t i = 0; i < length; i++) {
+    const uint8_t *const from = src + i;
+    uint8_t *const to = dst + i;
+    *to = *from;
+  }
+
+  return dst;
+}
