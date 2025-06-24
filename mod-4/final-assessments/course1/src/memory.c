@@ -71,3 +71,14 @@ uint8_t *my_memmove(const uint8_t *const src, uint8_t *dst,
 
   return dst;
 }
+
+// -----------------------------------------------------------------------------
+uint8_t *my_memset(const uint8_t *src, const size_t length,
+                   const uint8_t value) {
+  for (size_t i = 0; i < length; i++) {
+    uint8_t *const to = src + i;
+    *to = value;
+  }
+
+  return src;
+}
