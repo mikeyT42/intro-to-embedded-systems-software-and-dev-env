@@ -82,3 +82,13 @@ uint8_t *my_memset(const uint8_t *src, const size_t length,
 
   return src;
 }
+
+// -----------------------------------------------------------------------------
+uint8_t *my_memzero(const uint8_t *src, const size_t length) {
+  for (size_t i = 0; i < length; i++) {
+    uint8_t *const to = src + i;
+    *to = 0;
+  }
+
+  return src;
+}
