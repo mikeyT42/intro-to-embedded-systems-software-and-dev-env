@@ -73,7 +73,7 @@ uint8_t *my_memmove(const uint8_t *const src, uint8_t *dst,
 }
 
 // -----------------------------------------------------------------------------
-uint8_t *my_memset(const uint8_t *src, const size_t length,
+uint8_t *my_memset(uint8_t *const src, const size_t length,
                    const uint8_t value) {
   for (size_t i = 0; i < length; i++) {
     uint8_t *const to = src + i;
@@ -84,10 +84,28 @@ uint8_t *my_memset(const uint8_t *src, const size_t length,
 }
 
 // -----------------------------------------------------------------------------
-uint8_t *my_memzero(const uint8_t *src, const size_t length) {
+uint8_t *my_memzero(uint8_t *const src, const size_t length) {
   for (size_t i = 0; i < length; i++) {
     uint8_t *const to = src + i;
     *to = 0;
+  }
+
+  return src;
+}
+
+// -----------------------------------------------------------------------------
+uint8_t *my_reverse(uint8_t *const src, const size_t length) {
+  /*
+   * Move our left and right fingers closer together until they touch, in which
+   * case we don't have to swap the values under each finger.
+   */
+  for (size_t left_finger = 0, right_finger = length - 1;
+       left_finger != right_finger; left_finger++, right_finger--) {
+    uint8_t *const left_ptr = src + left_finger;
+    uint8_t *const right_ptr = src + right_finger;
+    const uint8_t *const tmp = left_ptr;
+    *left_ptr = *right_ptr;
+    *right_ptr = *tmp;
   }
 
   return src;

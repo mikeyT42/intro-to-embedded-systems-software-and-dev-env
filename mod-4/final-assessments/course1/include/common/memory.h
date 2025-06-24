@@ -138,7 +138,7 @@ uint8_t *my_memcopy(const uint8_t *const src, uint8_t *const dst,
  *
  * @return The pointer to the source
  */
-uint8_t *my_memset(const uint8_t *src, const size_t length,
+uint8_t *my_memset(uint8_t *const src, const size_t length,
                    const uint8_t value);
 
 /**
@@ -152,7 +152,7 @@ uint8_t *my_memset(const uint8_t *src, const size_t length,
  *
  * @return The pointer to the source
  */
-uint8_t *my_memzero(const uint8_t *src, const size_t length);
+uint8_t *my_memzero(uint8_t *const src, const size_t length);
 
 /**
  * @brief Reverse the source bytes.
@@ -165,7 +165,7 @@ uint8_t *my_memzero(const uint8_t *src, const size_t length);
  *
  * @return The pointer to the source
  */
-uint8_t *my_reverse(const uint8_t *src, const size_t length);
+uint8_t *my_reverse(uint8_t *const src, const size_t length);
 
 /**
  * @brief Reserve given number of words.
