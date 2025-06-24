@@ -172,7 +172,7 @@ uint8_t *my_reverse(uint8_t *const src, const size_t length);
  *
  * Take a number of words to allocate in dynamic memory.
  *
- * @param length The number of words to reserve
+ * @param length The size, in bytes, to reserve
  *
  * @return A NULL pointer if allocation unsuccessful, the pointer to the
  *          reserved block if successful
