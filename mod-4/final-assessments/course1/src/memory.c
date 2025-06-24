@@ -57,3 +57,17 @@ uint8_t *my_memcopy(const uint8_t *const src, uint8_t *const dst,
 
   return dst;
 }
+
+// -----------------------------------------------------------------------------
+uint8_t *my_memmove(const uint8_t *const src, uint8_t *dst,
+                    const size_t length) {
+  for (size_t i = 0; i < length; i++) {
+    const uint8_t *const from = src + i;
+    uint8_t *const to = dst + i;
+    if (from == to)
+      continue;
+    *to = *from;
+  }
+
+  return dst;
+}
