@@ -115,4 +115,4 @@ uint8_t *my_reverse(uint8_t *const src, const size_t length) {
 int32_t *reserve_words(const size_t size) { return malloc(size); }
 
 // -----------------------------------------------------------------------------
-void free_words(const uint32_t *const src) { free(src); }
+void free_words(const uint32_t *const src) { free((void *)src); }
