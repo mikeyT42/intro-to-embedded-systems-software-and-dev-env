@@ -190,6 +190,6 @@ int32_t *reserve_words(const size_t length);
  *
  * @return void
  */
-void free_words(const int32_t *const src);
+void free_words(const uint32_t *const src);
 
 #endif /* __MEMORY_H__ */
