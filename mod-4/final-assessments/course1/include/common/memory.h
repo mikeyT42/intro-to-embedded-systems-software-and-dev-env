@@ -106,8 +106,6 @@ void clear_all(char *ptr, unsigned int size);
  *
  * @return The pointer to the destination
  */
-// TODO: I could potentially go backwards! Iterate from the end of src so that
-// way the memory isn't overwritten. Shit, this does corrupt the src though...
 uint8_t *my_memmove(const uint8_t *const src, uint8_t *dst,
                     const size_t length);
 
