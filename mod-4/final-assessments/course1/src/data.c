@@ -125,10 +125,12 @@ int32_t my_atoi(const uint8_t *const ptr, const uint8_t digits,
     end = 1;
 
   int32_t number = 0;
+  uint32_t digit_pos_factor = 1;
   for (uint8_t i = digits; i > end; i--) {
     const char character = (char)(*(ptr + i));
     uint32_t num = ctoi(character, base);
-    num *= base;
+    num *= digit_pos_factor;
+    digit_pos_factor *= 10;
   }
   if (is_odd)
     number *= -1;
