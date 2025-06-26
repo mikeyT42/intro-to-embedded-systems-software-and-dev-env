@@ -67,7 +67,6 @@ uint32_t ctoi(const char c, const uint32_t base);
  Function Definitions
 *******************************************************************************/
 uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
-  const uint8_t MAX_LEN = 34; // Includes the sign and \0.
   char buff[MAX_LEN];
 
   uint8_t length = 0;
@@ -84,13 +83,19 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
     *buff_pos = '\0';
   }
 
+  for (uint8_t i = 0; i < length; i++) {
+    uint8_t *const from = buff + i;
+    uint8_t *const to = ptr + i;
+    *to = *from;
+  }
+
   return length;
 }
 
 // -----------------------------------------------------------------------------
 char *recursive_itoa(char *buff_pos, const uint32_t quotient,
                      const uint32_t base, uint8_t *const length) {
-  if (quotient == 0)
+  if (quotient == 0 || length == MAX_LEN)
     return buff_pos;
 
   const uint32_t new_quotient = quotient / base;

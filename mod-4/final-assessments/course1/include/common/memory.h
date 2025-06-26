@@ -26,6 +26,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#define MAX_LEN = 34; // Includes the sign and \0.
+
 /**
  * @brief Sets a value of a data array
  *
