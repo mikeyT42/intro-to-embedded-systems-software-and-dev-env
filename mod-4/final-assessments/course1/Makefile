@@ -34,6 +34,7 @@
 # Platform Overrides:
 #      PLATFORM - Supports HOST or MSP432
 #      VERBOSE  - Supports verbose printing
+#      COURSE1  - Supports the course1 code
 #
 #------------------------------------------------------------------------------
 include sources.mk
@@ -67,10 +68,13 @@ CFLAGS = -Wall -Werror -g -O0 -std=c99 -mthumb \
 		 --specs=$(SPECS)
 CPPFLAGS = $(INCLUDES)
 endif
-ifdef VERBOSE
-OVERRIDES = -D$(PLATFORM) -DVERBOSE
-else
+
 OVERRIDES = -D$(PLATFORM)
+ifdef VERBOSE
+OVERRIDES += -DVERBOSE
+endif
+ifdef COURSE1
+OVERRIDES += -DCOURSE1
 endif
 
 TARGET = c1m2
