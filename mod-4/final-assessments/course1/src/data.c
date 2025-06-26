@@ -84,9 +84,9 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
   }
 
   for (uint8_t i = 0; i < length; i++) {
-    uint8_t *const from = buff + i;
+    char *const from = buff + i;
     uint8_t *const to = ptr + i;
-    *to = *from;
+    *to = (uint8_t)*from;
   }
 
   return length;
@@ -95,7 +95,7 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
 // -----------------------------------------------------------------------------
 char *recursive_itoa(char *buff_pos, const uint32_t quotient,
                      const uint32_t base, uint8_t *const length) {
-  if (quotient == 0 || length == MAX_LEN)
+  if (quotient == 0 || *length == MAX_LEN)
     return buff_pos;
 
   const uint32_t new_quotient = quotient / base;

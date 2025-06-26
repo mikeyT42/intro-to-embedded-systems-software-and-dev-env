@@ -23,6 +23,8 @@
 
 #include <stdint.h>
 
+#define MAX_LEN (34) // Includes the sign and \0.
+
 /**
  * @brief Convert a given integer into a string.
  *
