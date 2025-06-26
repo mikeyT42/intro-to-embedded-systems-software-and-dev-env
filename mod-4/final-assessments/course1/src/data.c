@@ -46,9 +46,22 @@ char *recursive_itoa(char *buff_pos, const uint32_t quotient,
  * @param remainder The number that is to be converted into a character
  * @param base The base of the string that the number will represent
  *
- * @return The buffer position that has been incremented to
+ * @return The converted character
  */
 char itoc(const uint32_t remainder, const uint32_t base);
+
+/**
+ * @brief Take a character and turn it into a number
+ *
+ * Given a character and turn it into a number from a base number
+ * representation.
+ *
+ * @param c The character to be converted; it is in a base representation
+ * @param base The base of the string that the number will represent
+ *
+ * @return The converted number
+ */
+uint32_t ctoi(const char c, const uint32_t base);
 
 /*******************************************************************************
  Function Definitions
@@ -59,7 +72,9 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
 
   uint8_t length = 0;
   if (data % 2 == 0) {
-    // blah
+    char *start = buff;
+    char *end = recursive_itoa(start, data, base, &length);
+    *end = '\0';
   } else {
     uint32_t made_pos = (~data) + 1;
     char *start = buff;
@@ -94,3 +109,7 @@ char itoc(const uint32_t remainder, const uint32_t base) {
 
   return (char)remainder + ascii_inc;
 }
+
+// -----------------------------------------------------------------------------
+int32_t my_atoi(const uint8_t *const ptr, const uint8_t digits,
+                const uint32_t base) {}
