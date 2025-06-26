@@ -33,6 +33,7 @@
 #
 # Platform Overrides:
 #      PLATFORM - Supports HOST or MSP432
+#      VERBOSE  - Supports verbose printing
 #
 #------------------------------------------------------------------------------
 include sources.mk
@@ -66,6 +67,11 @@ CFLAGS = -Wall -Werror -g -O0 -std=c99 -mthumb \
 		 --specs=$(SPECS)
 CPPFLAGS = $(INCLUDES)
 endif
+ifdef VERBOSE
+OVERRIDES = -D$(PLATFORM) -DVERBOSE
+else
+OVERRIDES = -D$(PLATFORM)
+endif
 
 TARGET = c1m2
 OBJS = $(SOURCES:.c=.o)
@@ -75,14 +81,14 @@ DEPS = $(SOURCES:.c=.d)
 
 #-------------------------------------------------------------------------------
 %.i: %.c
-	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -MD -E -o $@ $^
+	$(CC) $(OVERRIDES) $(CPPFLAGS) $(CFLAGS) -MD -E -o $@ $^
 
 #-------------------------------------------------------------------------------
 %.asm: %.c
 	# Get the .asm file for the given file.
-	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -S -o $@ $^
+	$(CC) $(OVERRIDES) $(CPPFLAGS) $(CFLAGS) -S -o $@ $^
 	# Compile and disassemble for executable asm.
-	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $(TARGET).out \
+	$(CC) $(OVERRIDES) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $(TARGET).out \
 		$(SOURCES)
 	$(ODBJDUMP) -d $(TARGET).out > $(TARGET).asm
 	# Cleanup.
@@ -90,7 +96,7 @@ DEPS = $(SOURCES:.c=.d)
 
 #-------------------------------------------------------------------------------
 %.o: %.c
-	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) -MMD -MP -c $< -o $@
+	$(CC) $(OVERRIDES) $(CPPFLAGS) $(CFLAGS) -MMD -MP -c $< -o $@
 
 # Compile interrupt handler without using FPU registers int order to avoid FPU
 # context save/restore.
@@ -107,7 +113,7 @@ compile-all: $(OBJS)
 build: $(TARGET).out
 
 $(TARGET).out: $(OBJS)
-	$(CC) -D$(PLATFORM) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $^
+	$(CC) $(OVERRIDES) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $^
 	$(SZ) -Atd $@
 
 #-------------------------------------------------------------------------------
