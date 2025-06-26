@@ -112,9 +112,35 @@ char itoc(const uint32_t remainder, const uint32_t base) {
   if (base > 10 && remainder > 9)
     ascii_inc = 55;
 
-  return (char)remainder + ascii_inc;
+  return (char)(remainder + ascii_inc);
 }
 
 // -----------------------------------------------------------------------------
 int32_t my_atoi(const uint8_t *const ptr, const uint8_t digits,
-                const uint32_t base) {}
+                const uint32_t base) {
+  uint8_t is_odd = *ptr == '-';
+
+  uint8_t end = 0;
+  if (is_odd)
+    end = 1;
+
+  int32_t number = 0;
+  for (uint8_t i = digits; i > end; i--) {
+    const char character = (char)(*(ptr + i));
+    uint32_t num = ctoi(character, base);
+    num *= base;
+  }
+  if (is_odd)
+    number *= -1;
+
+  return 0;
+}
+
+// -----------------------------------------------------------------------------
+uint32_t ctoi(const char c, const uint32_t base) {
+  uint8_t ascii_inc = 48;
+  if (base > 10 && c >= 'A')
+    ascii_inc = 55;
+
+  return (uint32_t)(c - ascii_inc);
+}
