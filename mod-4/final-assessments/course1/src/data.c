@@ -21,8 +21,33 @@
  */
 #include "data.h"
 
+/**
+ * @brief Recursively calculate each number character
+ *
+ * Given a calculated quotient, get the remainder of a new division which
+ * represents a character number.
+ *
+ * @param buff_pos Pointer to a position in a buffer; it is incremented
+ * @param quotient The current quotient which is then used for a new division
+ * @param base This is the number base of the string; it's also used in division
+ * @param length This is a pointer to the new string length; it is incremented
+ *
+ * @return The buffer position that has been incremented to
+ */
 char *recursive_itoa(char *buff_pos, const uint32_t quotient,
                      const uint32_t base, uint8_t *const length);
+
+/**
+ * @brief Take a number and turn it into a character
+ *
+ * Given a number from the recursive function that represents a character,
+ * convert it into a character in that number's base.
+ *
+ * @param remainder The number that is to be converted into a character
+ * @param base The base of the string that the number will represent
+ *
+ * @return The buffer position that has been incremented to
+ */
 char itoc(const uint32_t remainder, const uint32_t base);
 
 /*******************************************************************************
