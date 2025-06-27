@@ -20,6 +20,7 @@
  *
  */
 #include "data.h"
+#include <stdio.h>
 
 /**
  * @brief Recursively calculate each number character
@@ -70,24 +71,32 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
   char buff[MAX_LEN];
 
   uint8_t length = 0;
-  if (data % 2 == 0) {
+  if (data >= 0) {
+    printf("data = %i\n", data);
     char *start = buff;
     char *end = recursive_itoa(start, data, base, &length);
     *end = '\0';
+    length++;
   } else {
+    printf("data = %i\n", data);
     uint32_t made_pos = (~data) + 1;
+    printf("made_pos = %i\n", made_pos);
     char *start = buff;
     *start = '-';
+    length++;
     char *buff_pos = start + 1;
     buff_pos = recursive_itoa(buff_pos, made_pos, base, &length);
     *buff_pos = '\0';
+    length++;
   }
 
+  printf("buff = %s\n", buff);
   for (uint8_t i = 0; i < length; i++) {
     char *const from = buff + i;
     uint8_t *const to = ptr + i;
     *to = (uint8_t)*from;
   }
+  printf("ptr = %s\n", ptr);
 
   return length;
 }
@@ -95,12 +104,16 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
 // -----------------------------------------------------------------------------
 char *recursive_itoa(char *buff_pos, const uint32_t quotient,
                      const uint32_t base, uint8_t *const length) {
+  printf("quotient = %i\n", quotient);
   if (quotient == 0 || *length == MAX_LEN)
     return buff_pos;
 
   const uint32_t new_quotient = quotient / base;
+  printf("new_quotient = %i\n", new_quotient);
   const uint32_t remainder = quotient % base;
+  printf("remainder = %i\n", remainder);
   char converted = itoc(remainder, base);
+  printf("converted = %c\n", converted);
   *buff_pos = converted;
   *length += 1;
   return recursive_itoa(++buff_pos, new_quotient, base, length);

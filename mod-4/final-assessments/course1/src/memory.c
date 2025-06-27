@@ -100,19 +100,21 @@ uint8_t *my_reverse(uint8_t *const src, const size_t length) {
    * case we don't have to swap the values under each finger.
    */
   for (size_t left_finger = 0, right_finger = length - 1;
-       left_finger != right_finger; left_finger++, right_finger--) {
+       left_finger < right_finger; left_finger++, right_finger--) {
     uint8_t *const left_ptr = src + left_finger;
     uint8_t *const right_ptr = src + right_finger;
-    const uint8_t *const tmp = left_ptr;
+    const uint8_t tmp = *left_ptr;
     *left_ptr = *right_ptr;
-    *right_ptr = *tmp;
+    *right_ptr = tmp;
   }
 
   return src;
 }
 
 // -----------------------------------------------------------------------------
-int32_t *reserve_words(const size_t size) { return malloc(size); }
+int32_t *reserve_words(const size_t size) {
+  return malloc(sizeof(uint32_t) * size);
+}
 
 // -----------------------------------------------------------------------------
 void free_words(const uint32_t *const src) { free((void *)src); }

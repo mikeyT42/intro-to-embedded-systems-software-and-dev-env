@@ -38,6 +38,7 @@ int8_t test_data1() {
   }
 
   digits = my_itoa(num, ptr, BASE_16);
+  PRINTF("itoa = %s\n", ptr);
   value = my_atoi(ptr, digits, BASE_16);
 #ifdef VERBOSE
   PRINTF("  Initial number: %d\n", num);
@@ -306,6 +307,7 @@ void course1(void) {
 
   for (i = 0; i < TESTCOUNT; i++) {
     failed += results[i];
+    PRINTF("Test %i result = %i\n", i + 1, results[i]);
   }
 
   PRINTF("--------------------------------\n");
