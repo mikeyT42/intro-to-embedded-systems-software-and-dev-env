@@ -94,9 +94,9 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
     *to = (uint8_t)*from;
   }
   if (!is_positive) {
-    length += 2;
+    length += 2; // For the '-' and the '\0'.
   } else {
-    length += 1;
+    length += 1; // For the '\0'.
   }
   // Lastly, end our string.
   *(ptr + length) = '\0';
