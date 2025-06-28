@@ -71,31 +71,38 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
   char buff[MAX_LEN];
 
   uint8_t length = 0;
-  if (data >= 0) {
+  uint8_t is_positive = data >= 0;
+  if (is_positive) {
     printf("data = %i\n", data);
     char *start = buff;
-    char *end = recursive_itoa(start, data, base, &length);
-    *end = '\0';
-    length++;
+    recursive_itoa(start, data, base, &length);
   } else {
     printf("data = %i\n", data);
     uint32_t made_pos = (~data) + 1;
     printf("made_pos = %i\n", made_pos);
     char *start = buff;
-    *start = '-';
-    length++;
-    char *buff_pos = start + 1;
-    buff_pos = recursive_itoa(buff_pos, made_pos, base, &length);
-    *buff_pos = '\0';
-    length++;
+    recursive_itoa(start, made_pos, base, &length);
   }
 
+  //*(buff + length) = '\0';
   printf("buff = %s\n", buff);
-  for (uint8_t i = 0; i < length; i++) {
-    char *const from = buff + i;
-    uint8_t *const to = ptr + i;
+  uint8_t forward = 0;
+  if (!is_positive) {
+    *ptr = '-';
+    forward++;
+    //length++;
+  }
+  for (int8_t backward = length - 1; backward >= 0; forward++, backward--) {
+    char *const from = buff + backward;
+    uint8_t *const to = ptr + forward;
     *to = (uint8_t)*from;
   }
+  if (!is_positive) {
+    length += 2;
+  } else {
+    length += 1;
+  }
+  *(ptr + length) = '\0';
   printf("ptr = %s\n", ptr);
 
   return length;
