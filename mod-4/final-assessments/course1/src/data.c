@@ -73,11 +73,11 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
 
   // First, add to the buffer all of the characters from a number in their base.
   if (is_positive) {
-    char *start = buff;
+    char *const start = buff;
     recursive_itoa(start, data, base, &length);
   } else {
-    uint32_t made_pos = (~data) + 1;
-    char *start = buff;
+    const uint32_t made_pos = (~data) + 1;
+    char *const start = buff;
     recursive_itoa(start, made_pos, base, &length);
   }
 
@@ -89,7 +89,7 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
   }
   // Thirdly, copy from the buffer in reverse order: the buffer is backwards.
   for (int8_t backward = length - 1; backward >= 0; forward++, backward--) {
-    char *const from = buff + backward;
+    const char *const from = buff + backward;
     uint8_t *const to = ptr + forward;
     *to = (uint8_t)*from;
   }
@@ -112,7 +112,7 @@ char *recursive_itoa(char *buff_pos, const uint32_t quotient,
 
   const uint32_t new_quotient = quotient / base;
   const uint32_t remainder = quotient % base;
-  char converted = itoc(remainder, base);
+  const char converted = itoc(remainder, base);
   *buff_pos = converted;
   *length += 1;
   return recursive_itoa(++buff_pos, new_quotient, base, length);
@@ -130,7 +130,7 @@ char itoc(const uint32_t remainder, const uint32_t base) {
 // -----------------------------------------------------------------------------
 int32_t my_atoi(const uint8_t *const ptr, const uint8_t digits,
                 const uint32_t base) {
-  uint8_t is_odd = *ptr == '-';
+  const uint8_t is_odd = *ptr == '-';
 
   uint8_t end = 0;
   if (is_odd)
