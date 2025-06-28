@@ -105,16 +105,12 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
 // -----------------------------------------------------------------------------
 char *recursive_itoa(char *buff_pos, const uint32_t quotient,
                      const uint32_t base, uint8_t *const length) {
-  printf("quotient = %i\n", quotient);
   if (quotient == 0 || *length == MAX_LEN)
     return buff_pos;
 
   const uint32_t new_quotient = quotient / base;
-  printf("new_quotient = %i\n", new_quotient);
   const uint32_t remainder = quotient % base;
-  printf("remainder = %i\n", remainder);
   char converted = itoc(remainder, base);
-  printf("converted = %c\n", converted);
   *buff_pos = converted;
   *length += 1;
   return recursive_itoa(++buff_pos, new_quotient, base, length);
