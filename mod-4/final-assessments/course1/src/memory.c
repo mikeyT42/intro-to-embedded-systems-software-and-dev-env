@@ -100,8 +100,9 @@ uint8_t *my_memzero(uint8_t *const src, const size_t length) {
 // -----------------------------------------------------------------------------
 uint8_t *my_reverse(uint8_t *const src, const size_t length) {
   /*
-   * Move our left and right fingers closer together until they touch, in which
-   * case we don't have to swap the values under each finger.
+   * Move our left and right fingers closer together until they touch or pass
+   * over each other, in which case we don't have to swap the values under each
+   * finger anymore.
    */
   for (size_t left_finger = 0, right_finger = length - 1;
        left_finger < right_finger; left_finger++, right_finger--) {

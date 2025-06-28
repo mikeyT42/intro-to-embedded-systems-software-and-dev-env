@@ -24,6 +24,8 @@
 #include <stdint.h>
 
 #define MAX_LEN (32)
+#define BEGIN_ASCII_NUMS (48)
+#define BEGIN_ASCII_UPPERCASE_CHARS (55)
 
 /**
  * @brief Convert a given integer into a string.

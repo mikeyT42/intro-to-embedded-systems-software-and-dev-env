@@ -68,9 +68,10 @@ uint32_t ctoi(const char c, const uint32_t base);
 *******************************************************************************/
 uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
   char buff[MAX_LEN];
-
   uint8_t length = 0;
   uint8_t is_positive = data >= 0;
+
+  // First, add to the buffer all of the characters from a number in their base.
   if (is_positive) {
     char *start = buff;
     recursive_itoa(start, data, base, &length);
@@ -80,11 +81,13 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
     recursive_itoa(start, made_pos, base, &length);
   }
 
+  // Secondly, get the final string ready.
   uint8_t forward = 0;
   if (!is_positive) {
     *ptr = '-';
     forward++;
   }
+  // Thirdly, copy from the buffer in reverse order: the buffer is backwards.
   for (int8_t backward = length - 1; backward >= 0; forward++, backward--) {
     char *const from = buff + backward;
     uint8_t *const to = ptr + forward;
@@ -95,6 +98,7 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
   } else {
     length += 1;
   }
+  // Lastly, end our string.
   *(ptr + length) = '\0';
 
   return length;
@@ -116,9 +120,9 @@ char *recursive_itoa(char *buff_pos, const uint32_t quotient,
 
 // -----------------------------------------------------------------------------
 char itoc(const uint32_t remainder, const uint32_t base) {
-  uint8_t ascii_inc = 48;
+  uint8_t ascii_inc = BEGIN_ASCII_NUMS;
   if (base > 10 && remainder > 9)
-    ascii_inc = 55;
+    ascii_inc = BEGIN_ASCII_UPPERCASE_CHARS;
 
   return (char)(remainder + ascii_inc);
 }
@@ -149,9 +153,9 @@ int32_t my_atoi(const uint8_t *const ptr, const uint8_t digits,
 
 // -----------------------------------------------------------------------------
 uint32_t ctoi(const char c, const uint32_t base) {
-  uint8_t ascii_inc = 48;
+  uint8_t ascii_inc = BEGIN_ASCII_NUMS;
   if (base > 10 && c >= 'A')
-    ascii_inc = 55;
+    ascii_inc = BEGIN_ASCII_UPPERCASE_CHARS;
 
   return (uint32_t)(c - ascii_inc);
 }
