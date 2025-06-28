@@ -141,13 +141,16 @@ int32_t my_atoi(const uint8_t *const ptr, const uint8_t digits,
     const char character = (char)(*(ptr + i));
     printf("character = %c\n", character);
     uint32_t num = ctoi(character, base);
+    printf("num = %i\n", num);
     num *= digit_pos_factor;
-    digit_pos_factor *= 10;
+    number += num;
+    printf("num = %i\n", num);
+    digit_pos_factor *= base;
   }
   if (is_odd)
     number *= -1;
 
-  return 0;
+  return number;
 }
 
 // -----------------------------------------------------------------------------
