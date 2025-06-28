@@ -97,7 +97,6 @@ uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
     length += 1;
   }
   *(ptr + length) = '\0';
-  printf("ptr = %s\n", ptr);
 
   return length;
 }
@@ -136,15 +135,11 @@ int32_t my_atoi(const uint8_t *const ptr, const uint8_t digits,
 
   int32_t number = 0;
   uint32_t digit_pos_factor = 1;
-  printf("digits = %i\n", digits);
   for (int8_t i = digits - 2; i >= end; i--) {
     const char character = (char)(*(ptr + i));
-    printf("character = %c\n", character);
     uint32_t num = ctoi(character, base);
-    printf("num = %i\n", num);
     num *= digit_pos_factor;
     number += num;
-    printf("num = %i\n", num);
     digit_pos_factor *= base;
   }
   if (is_odd)
