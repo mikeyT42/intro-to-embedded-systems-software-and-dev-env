@@ -64,16 +64,12 @@ uint8_t *my_memmove(const uint8_t *const src, uint8_t *dst,
                     const size_t length) {
   uint8_t tmp[length];
   my_memcopy(src, tmp, length);
-  printf("length = %li\n", length);
+
   for (size_t i = 0; i < length; i++) {
     const uint8_t *const from = tmp + i;
-    printf("from = %p\n", from);
     uint8_t *const to = dst + i;
-    printf("to = %p\n", to);
     if (from == to)
       continue;
-    printf("*from = %i\n", *from);
-    printf("*to = %i\n", *to);
     *to = *from;
   }
 
