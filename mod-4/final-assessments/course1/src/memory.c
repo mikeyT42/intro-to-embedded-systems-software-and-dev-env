@@ -60,7 +60,7 @@ uint8_t *my_memcopy(const uint8_t *const src, uint8_t *const dst,
 }
 
 // -----------------------------------------------------------------------------
-uint8_t *my_memmove(const uint8_t *const src, uint8_t *dst,
+uint8_t *my_memmove(const uint8_t *const src, uint8_t *const dst,
                     const size_t length) {
   uint8_t tmp[length];
   my_memcopy(src, tmp, length);

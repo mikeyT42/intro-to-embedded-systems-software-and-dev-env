@@ -107,7 +107,7 @@ void clear_all(char *ptr, unsigned int size);
  *
  * @return The pointer to the destination
  */
-uint8_t *my_memmove(const uint8_t *const src, uint8_t *dst,
+uint8_t *my_memmove(const uint8_t *const src, uint8_t *const dst,
                     const size_t length);
 
 /**
