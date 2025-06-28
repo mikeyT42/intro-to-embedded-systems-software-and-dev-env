@@ -69,7 +69,7 @@ uint32_t ctoi(const char c, const uint32_t base);
 uint8_t my_itoa(const int32_t data, uint8_t *const ptr, const uint32_t base) {
   char buff[MAX_LEN];
   uint8_t length = 0;
-  uint8_t is_positive = data >= 0;
+  const uint8_t is_positive = data >= 0;
 
   // First, add to the buffer all of the characters from a number in their base.
   if (is_positive) {
