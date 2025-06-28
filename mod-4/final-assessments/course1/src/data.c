@@ -20,7 +20,6 @@
  *
  */
 #include "data.h"
-#include <stdio.h>
 
 /**
  * @brief Recursively calculate each number character

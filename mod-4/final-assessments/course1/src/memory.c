@@ -21,6 +21,7 @@
  *
  */
 #include "memory.h"
+#include <stdio.h>
 
 /*******************************************************************************
  Function Definitions
@@ -63,10 +64,13 @@ uint8_t *my_memmove(const uint8_t *const src, uint8_t *dst,
                     const size_t length) {
   for (size_t i = 0; i < length; i++) {
     const uint8_t *const from = src + i;
+    printf("from = %p\n", from);
     uint8_t *const to = dst + i;
+    printf("to = %p\n", to);
     if (from == to)
       continue;
     *to = *from;
+    printf("didn't continue\n");
   }
 
   return dst;
